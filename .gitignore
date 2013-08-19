@@ -2,6 +2,7 @@ pom.xml
 *jar
 /lib/
 /target/
-.lein-deps-sum
 .idea/
 *.iml
+.DS_Store
+.lein-repl-history
