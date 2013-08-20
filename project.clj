@@ -9,4 +9,5 @@
   :ring {:handler taskmaster.web/handler
          :init taskmaster.web/init
          :destory taskmaster.web/destroy}
-  :source-paths ["src/main/clojure"])
+  :source-paths ["src/main/clojure"]
+  :resource-paths ["web/main"])

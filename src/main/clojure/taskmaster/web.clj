@@ -60,7 +60,13 @@
           (DELETE "/" [] (delete-story id))))))
   (route/not-found "Not Found"))
 
+(defroutes main-routes
+  (GET "/" [] "<h1>Welcome!</h1>")
+  (context "/api" [] app-routes)
+  (route/resources "/" {:root nil})
+  (route/not-found "<h1>Page not found</h1>"))
+
 (def handler
-  (-> (handler/api app-routes)
+  (-> (handler/api main-routes)
     (middleware/wrap-json-body)
     (middleware/wrap-json-response)))
