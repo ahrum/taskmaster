@@ -6,3 +6,4 @@ pom.xml
 *.iml
 .DS_Store
 .lein-repl-history
+libpeerconnection.log

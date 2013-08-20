@@ -23,23 +23,30 @@
 
 (defn- get-all-stories
   []
-  (response (mc/find-maps doc-db-name)))
+  (response (mc/find-seq doc-db-name)))
 
 (defn- create-new-story
   [body]
-  )
+  {:status 201 :headers {} :body (mc/insert-and-return doc-db-name body)})
 
 (defn- get-story
   [id]
-  (response (mc/find-map-by-id doc-db-name (ObjectId. id))))
+  (try
+    (if-let [body (mc/find-map-by-id doc-db-name (ObjectId. id))]
+      (response body)
+      {:status 404})
+    (catch IllegalArgumentException e
+      {:status 404})))
 
 (defn- update-story
   [id body]
-  )
+  (mc/update-by-id doc-db-name (ObjectId. id) body)
+  {:status 200})
 
 (defn- delete-story
   [id]
-  )
+  (mc/remove-by-id doc-db-name (ObjectId. id))
+  {:status 200})
 
 (defroutes app-routes
   (context "/stories" []

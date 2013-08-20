@@ -8,4 +8,5 @@
   :plugins [[lein-ring "0.8.6"]]
   :ring {:handler taskmaster.web/handler
          :init taskmaster.web/init
-         :destory taskmaster.web/destroy})
+         :destory taskmaster.web/destroy}
+  :source-paths ["src/main/clojure"])
