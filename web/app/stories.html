@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <title>Taskmaster: stories</title>
+</head>
+<body>
+    <h1>Taskmaster!</h1>
+
+    <h2>Stories</h2>
+    <div ng-controller="StoriesController">
+        <div>
+            Filter: <input ng-model="query">
+            Sort by:
+            <select ng-model="orderProp">
+                <option value="name">Name</option>
+                <option value="status">Status</option>
+            </select>
+        </div>
+        <ol>
+           <li class="story" ng-repeat="story in stories | filter:query | orderBy:orderProp">
+               <div>Name: {{ story.name }}</div>
+               <div>Status: {{ story.status }}</div>
+               <div style="visibility: hidden">{{ story.order }}</div>
+           </li>
+        </ol>
+    </div>
+
+    <script src="lib/angular/angular-1.0.6.js"></script>
+    <script src="js/stories/controller.js"></script>
+</body>
+</html>

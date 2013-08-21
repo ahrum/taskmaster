@@ -10,4 +10,4 @@
          :init taskmaster.web/init
          :destory taskmaster.web/destroy}
   :source-paths ["src/main/clojure"]
-  :resource-paths ["web/main"])
+  :resource-paths ["web/app"])
