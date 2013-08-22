@@ -1,0 +1,23 @@
+<h2>Stories</h2>
+<div>
+    Filter: <input ng-model="query">
+    Sort by:
+    <select ng-model="orderProp">
+        <option value="name">Name (A->Z)</option>
+        <option value="-name">Name (Z->A)</option>
+        <option value="status">Status (A->Z)</option>
+        <option value="-status">Status (Z->A)</option>
+    </select>
+</div>
+
+<table>
+    <tr><th>Name</th><th>Status</th></tr>
+    <tr class="story" ng-repeat="story in stories | filter:query | orderBy:orderProp">
+        <td><a href="#/stories/{{ story._id }}">view</a></td>
+        <td>{{ story.name }}</td>
+        <td>{{ story.status }}</td>
+        <td style="visibility: hidden">{{ story.order }}</td>
+    </tr>
+</table>
+
+<!--<pre>{{ stories | json }}</pre>-->
