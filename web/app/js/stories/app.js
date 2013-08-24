@@ -2,6 +2,7 @@ angular.module("taskmaster", ["filters", "services"]).
     config(["$routeProvider", function($routeProvider) {
         $routeProvider.
             when("/stories/", {templateUrl: "story-list.html", controller: StoriesController}).
+            when("/stories/new", {templateUrl: "story-new.html", controller: NewStoryController}).
             when("/stories/:storyId", {templateUrl: "story-detail.html", controller: StoryDetailController}).
             otherwise({redirectTo: "/stories"});
     }]);
@@ -16,5 +17,5 @@ angular.module("filters", []).
 
 angular.module("services", ["ngResource"]).
     factory("Story", function($resource) {
-        return $resource("api/stories/:id");
+        return $resource("api/stories/:id", {id: "@_id"}, {update: {method: "PUT"}});
     });

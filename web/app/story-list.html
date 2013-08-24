@@ -5,7 +5,11 @@
     </div>
 
     <div class="panel-body">
-        <div>Filter: <input ng-model="query">
+        <div class="pull-left">
+            Filter: <input ng-model="query">
+        </div>
+
+        <div class="pull-left">
             Sort by:
             <select ng-model="orderProp">
                 <option value="name">Name (A->Z)</option>
@@ -13,6 +17,10 @@
                 <option value="status">Status (A->Z)</option>
                 <option value="-status">Status (Z->A)</option>
             </select>
+        </div>
+
+        <div class="pull-right">
+            <a href="#/stories/new" class="btn btn-success">New</a>
         </div>
     </div>
 

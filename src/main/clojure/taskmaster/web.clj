@@ -40,7 +40,7 @@
 
 (defn- update-story
   [id body]
-  (mc/update-by-id doc-db-name (ObjectId. id) body)
+  (mc/update-by-id doc-db-name (ObjectId. id) (dissoc body "_id"))
   {:status 200})
 
 (defn- delete-story

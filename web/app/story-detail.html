@@ -6,6 +6,7 @@
 
     <div class="panel-body">
         <form role="form" class="form-horizontal">
+
             <div class="form-group">
                 <label class="control-label col-md-1">ID</label>
                 <div class="col-md-4">
@@ -39,7 +40,10 @@
                     <a href="#" class="btn btn-success">Cancel</a>
                 </div>
                 <div class="col-md-1 pull-right">
-                    <button type="button" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-success" ng-click="save()">Save</button>
+                </div>
+                <div class="col-md-1 pull-right">
+                    <button type="button" class="btn btn-success" ng-click="delete()">Delete</button>
                 </div>
             </div>
         </form>

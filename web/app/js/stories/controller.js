@@ -12,6 +12,27 @@ function StoriesController($scope, Story) {
     };
 }
 
-function StoryDetailController($scope, $routeParams, Story) {
+function StoryDetailController($scope, $routeParams, Story, $location) {
+
     $scope.story = Story.get({id: $routeParams.storyId});
+
+    $scope.save = function() {
+        $scope.story.$update();
+    };
+
+    $scope.delete = function() {
+        $scope.story.$delete();
+        $location.path("/");
+    };
+}
+
+function NewStoryController($scope, Story, $location) {
+
+    $scope.story = new Story({status: "todo"});
+
+    $scope.create = function() {
+        $scope.story.$save(function (data, headersGetter) {
+            $location.path("/stories/" + data._id);
+        });
+    };
 }
