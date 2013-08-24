@@ -1,14 +1,17 @@
-function StoriesController($scope, $http) {
+function StoriesController($scope, Story) {
 
-    $http.get("api/stories/").success(function(data) {
-        $scope.stories = data;
-    });
-
+    $scope.stories = Story.query();
     $scope.orderProp = "order";
+
+    $scope.sortBy = function(prop) {
+        if (prop === $scope.orderProp) {
+            $scope.orderProp = ($scope.orderProp.charAt(0) === '-') ? prop : "-" + prop;
+        } else {
+            $scope.orderProp = prop;
+        }
+    };
 }
 
-function StoryDetailController($scope, $routeParams, $http) {
-    $http.get("api/stories/" + $routeParams.storyId).success(function(data) {
-        $scope.story = data;
-    });
+function StoryDetailController($scope, $routeParams, Story) {
+    $scope.story = Story.get({id: $routeParams.storyId});
 }

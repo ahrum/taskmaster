@@ -7,16 +7,15 @@ describe("TaskMaster", function() {
         });
 
         it("should retrieve stories at the start", function() {
-//            pause();
-            expect(repeater("li.story").count()).toEqual(5);
+            expect(repeater("tr.story").count()).toEqual(81);
         });
 
         it("should filter stories by filter term", function() {
             input("query").enter("doing");
-            expect(repeater("li.story").count()).toEqual(1);
+            expect(repeater("tr.story").count()).toEqual(6);
 
             input("query").enter("todo");
-            expect(repeater("li.story").count()).toEqual(4);
+            expect(repeater("tr.story").count()).toEqual(71);
         });
     });
 });

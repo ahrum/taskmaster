@@ -33,11 +33,9 @@ module.exports = function(config) {
         // web server port
         port: 9877,
 
-
         proxies: {
-            '/': 'http://localhost:8000/web/app/'
+            '/': 'http://localhost:3000/'
         },
-
 
         urlRoot: '/_e2e_/',
 

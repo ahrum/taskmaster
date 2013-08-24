@@ -1,11 +1,14 @@
 describe("TaskMaster", function() {
 
-    var scope, $httpBackend, ctrl;
+    beforeEach(module("services"));
 
-    beforeEach(inject(function(_$httpBackend_, $rootScope) {
-        scope = $rootScope.$new();
-        $httpBackend = _$httpBackend_;
-    }));
+    beforeEach(function() {
+        this.addMatchers({
+            toEqualData: function(expected) {
+                return angular.equals(this.actual, expected);
+            }
+        });
+    });
 
     describe("Stories Controller", function() {
 
@@ -16,14 +19,18 @@ describe("TaskMaster", function() {
             {"_id": "000010", "name": "name 4", "status": "todo", "order": 2},
             {"_id": "000014", "name": "name 5", "status": "todo", "order": 1}];
 
-        beforeEach(inject(function($controller) {
-            $httpBackend.expectGET("api/stories/").respond(preparedStories);
+        var scope, $httpBackend, ctrl;
+
+        beforeEach(inject(function($rootScope, _$httpBackend_, $controller) {
+            scope = $rootScope.$new();
+            $httpBackend = _$httpBackend_;
+            $httpBackend.expectGET("api/stories").respond(preparedStories);
 
             ctrl = $controller(StoriesController, {$scope: scope});
         }));
 
         it("should initialise scope correctly", function() {
-            expect(scope.stories).toBeUndefined();
+            expect(scope.stories).toEqual([]);
             $httpBackend.flush();
 
             expect(scope.stories.length).toEqual(5);
@@ -35,7 +42,11 @@ describe("TaskMaster", function() {
 
         var preparedStory = {"_id": "1000", "name": "story name", "status": "todo", "order": 1};
 
-        beforeEach(inject(function($routeParams, $controller) {
+        var scope, $httpBackend, ctrl;
+
+        beforeEach(inject(function($rootScope, _$httpBackend_, $routeParams, $controller) {
+            scope = $rootScope.$new();
+            $httpBackend = _$httpBackend_;
             $httpBackend.expectGET("api/stories/1000").respond(preparedStory);
             $routeParams.storyId = "1000";
 
@@ -43,10 +54,23 @@ describe("TaskMaster", function() {
         }));
 
         it("should fetch story detail", function() {
-            expect(scope.story).toBeUndefined();
+            expect(scope.story).toEqualData({});
             $httpBackend.flush();
 
-            expect(scope.story).toEqual(preparedStory);
+            expect(scope.story).toEqualData(preparedStory);
         });
+    });
+});
+
+describe("Filter", function() {
+
+    beforeEach(module("filters"));
+
+    describe("checkmark", function() {
+
+        it("should convert status to icon", inject(function(checkmarkFilter) {
+            expect(checkmarkFilter("done")).toBe("done \u2713");
+            expect(checkmarkFilter("todo")).toBe("todo \u2718");
+        }));
     });
 });

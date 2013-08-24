@@ -11,11 +11,16 @@
 </div>
 
 <table>
-    <tr><th>Name</th><th>Status</th></tr>
+    <tr>
+        <th></th>
+        <th ng-click="sortBy('name')">Name</th>
+        <th ng-click="sortBy('status')">Status</th>
+        <th></th>
+    </tr>
     <tr class="story" ng-repeat="story in stories | filter:query | orderBy:orderProp">
         <td><a href="#/stories/{{ story._id }}">view</a></td>
         <td>{{ story.name }}</td>
-        <td>{{ story.status }}</td>
+        <td>{{ story.status | checkmark }}</td>
         <td style="visibility: hidden">{{ story.order }}</td>
     </tr>
 </table>
