@@ -1,28 +1,35 @@
-<h2>Stories</h2>
-<div>
-    Filter: <input ng-model="query">
-    Sort by:
-    <select ng-model="orderProp">
-        <option value="name">Name (A->Z)</option>
-        <option value="-name">Name (Z->A)</option>
-        <option value="status">Status (A->Z)</option>
-        <option value="-status">Status (Z->A)</option>
-    </select>
+<div class="panel panel-success">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">Stories <span class="badge">{{ stories.length }}</span></h3>
+    </div>
+
+    <div class="panel-body">
+        <div>Filter: <input ng-model="query">
+            Sort by:
+            <select ng-model="orderProp">
+                <option value="name">Name (A->Z)</option>
+                <option value="-name">Name (Z->A)</option>
+                <option value="status">Status (A->Z)</option>
+                <option value="-status">Status (Z->A)</option>
+            </select>
+        </div>
+    </div>
+
+    <table class="table table-striped table-hover table-condensed table-responsive">
+        <tr>
+            <th></th>
+            <th ng-click="sortBy('name')">Name</th>
+            <th ng-click="sortBy('status')">Status</th>
+            <th></th>
+        </tr>
+        <tr class="story" ng-repeat="story in stories | filter:query | orderBy:orderProp">
+            <td><a href="#/stories/{{ story._id }}">view</a></td>
+            <td>{{ story.name }}</td>
+            <td>{{ story.status | checkmark }}</td>
+            <td>{{ story.order }}</td>
+        </tr>
+    </table>
+
+    <div class="panel-footer"></div>
 </div>
-
-<table>
-    <tr>
-        <th></th>
-        <th ng-click="sortBy('name')">Name</th>
-        <th ng-click="sortBy('status')">Status</th>
-        <th></th>
-    </tr>
-    <tr class="story" ng-repeat="story in stories | filter:query | orderBy:orderProp">
-        <td><a href="#/stories/{{ story._id }}">view</a></td>
-        <td>{{ story.name }}</td>
-        <td>{{ story.status | checkmark }}</td>
-        <td style="visibility: hidden">{{ story.order }}</td>
-    </tr>
-</table>
-
-<!--<pre>{{ stories | json }}</pre>-->
